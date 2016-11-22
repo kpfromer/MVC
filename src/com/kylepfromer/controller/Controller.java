@@ -3,8 +3,10 @@ package com.kylepfromer.controller;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by kpfromer on 11/16/16.
@@ -24,6 +26,13 @@ public class Controller extends javax.servlet.http.HttpServlet {
         pageLayout.put("login", "login.jsp");
         pageLayout.put("signup", "signup.jsp");
 
+
+        //
+        Set<String> pageKeys = pageLayout.keySet();
+
+        if (!pageKeys.contains("index") || !pageKeys.contains("login") || !pageKeys.contains("signup")){
+            throw new RuntimeException("Doesn't have the required files!");
+        }
 
         //Add rootDir to every item
         for ( String key : pageLayout.keySet() ) {
@@ -47,6 +56,7 @@ public class Controller extends javax.servlet.http.HttpServlet {
                 request.getRequestDispatcher(pageLayout.get("index")).forward(request, response);
             }
         } else {
+//            request.setAttribute("todo", "10");
             request.getRequestDispatcher(pageLayout.get("index")).forward(request, response);
         }
 
